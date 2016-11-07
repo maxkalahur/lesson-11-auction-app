@@ -1,37 +1,35 @@
 <?php
+namespace App\Models;
 
 use App\Models\ModelInterface;
 use App\Database\DB;
-
-namespace App\Models;
 
 abstract class Model implements ModelInterface
 {
 	protected $table;
 	
-	public function __construct($data = null) {
-		
-		if( is_int($data) ) {
-			return self::get($data);
-		}
-		else if( is_array ($data) ) {
-			return self::hydrate($data);
-		}
-		
-		return $this;
+	public function __construct() {
+
 	}
 	
-	static public function all(): Array {
+	public static function all() {
 		
-		return DB::select("SELECT * FROM $table");
+		return self::hydrate(DB::select("SELECT * FROM $table"));
 	}
-	static public function get(Int $id): Array {
+
+	public static function get(Int $id) {
 		
-		return DB::select("SELECT * FROM $table WHERE `id`=$id");
+		return self::hydrate(DB::select("SELECT * FROM $table WHERE `id`=$id"));
 	}
-	static public function hydrate(Array $data): Model {
-		
-		
+
+	public static function hydrate(Array $data) {
+
+	    $className = __CLASS__;
+        $model = new $className();
+
+        // mapping...
+
+        return $model;
 	}
 	
 	

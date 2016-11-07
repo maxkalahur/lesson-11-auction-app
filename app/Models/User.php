@@ -16,4 +16,6 @@ class User extends Model
 		return $this->name;
 	}
 	
+	
+	
 }
