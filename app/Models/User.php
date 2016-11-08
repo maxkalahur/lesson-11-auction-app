@@ -1,13 +1,14 @@
 <?php
+namespace App\Models;
 
 use App\Models\Model;
+use App\Models\Lot;
 
-namespace App\Models;
 
 class User extends Model
 {
-	protected $table = 'users';
-	protected $name;
+	protected static $table = 'users';
+	protected $id, $name, $surname, $email, $pass;
 	
 	public function setName( $name ) {
 		$this->name = $name;
@@ -15,7 +16,10 @@ class User extends Model
 	public function getName() {
 		return $this->name;
 	}
+
 	
-	
+	public function lots() {
+	    return Lot::getByUserId( $this->id );
+    }
 	
 }

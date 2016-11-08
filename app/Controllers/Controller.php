@@ -9,6 +9,10 @@ abstract class Controller
 
     public function __construct( $config, $db, $serviceContainer ) {
 
+        $this->db = $db;
+        //..
+
+
     }
 
 }

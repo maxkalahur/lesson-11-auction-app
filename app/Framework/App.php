@@ -4,7 +4,6 @@ namespace App\Framework;
 use App\Framework\Config;
 use App\Framework\Routing;
 use App\Database\DB;
-use App\Controllers;
 
 class App
 {
@@ -28,12 +27,12 @@ class App
 
         if( $routeHandler = (Routing::init())->getCurrRouteHandler() ) {
 
-            $serviceController = [];
+            $serviceContainer = [];
 
             $className = 'App\Controllers\\'. $routeHandler[0];
             $methodName = $routeHandler[1];
 
-            $controller = new $className( $config, $database, $serviceController );
+            $controller = new $className( $config, $database, $serviceContainer );
             $controller->$methodName();
 
         }

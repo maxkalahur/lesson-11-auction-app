@@ -6,7 +6,7 @@ use App\Database\DB;
 
 abstract class Model implements ModelInterface
 {
-	protected $table;
+	protected static $table;
 	
 	public function __construct() {
 
@@ -27,11 +27,31 @@ abstract class Model implements ModelInterface
 	    $className = __CLASS__;
         $model = new $className();
 
+        foreach( $data as $key => $val ) {
+            $vars = get_object_vars($model);
+            if( in_array( $key, $vars ) ) {
+                $setVarMethod = 'set'.$key;
+                $model->$setVarMethod = $val;
+            }
+        }
         // mapping...
 
         return $model;
 	}
-	
+
+
+    public function __call( $name, $args ) {
+        //(new User)->getEmail();
+
+        $className = __CLASS__;
+        $model = new $className();
+        $vars = get_object_vars($model);
+    }
+
+    public static function __callStatic( $name, $args ) {
+        //User::getByEmail('a@b.c')
+        $vars = get_class_vars(__CLASS__);
+    }
 	
 	
 }

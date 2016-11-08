@@ -65,6 +65,11 @@ class Routing
                 }
             }
 
+            if( $route['policy'] == 'is_user' ) {
+                if( !Auth::getLoggedUser() ) {
+                    return false;
+                }
+            }
 
         }
 

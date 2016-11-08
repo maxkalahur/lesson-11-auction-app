@@ -40,12 +40,10 @@ class Config
         $res = null;
         for( $i = 0; $i < count($keys); $i++ ) {
 
-
             if( !$res ) {
                 if (array_key_exists($keys[$i], $this->values)) {
                     $res = $this->values[$keys[$i]];
                 }
-//                var_dump($this->values);
             }
             else {
                 if (array_key_exists($keys[$i], $res)) {
