@@ -17,10 +17,12 @@ class MainController extends Controller
 
         $users = User::all();
 
+//        var_dump( $this->servicesContainer->emailSender );
+//        var_dump( $this->config->get('db.host') );
 
 //        $users = User::all();
 
-        
+
         exit();
         $user = User::get(1);
         $userLots = $user->lots();

@@ -66,6 +66,9 @@ abstract class Model implements ModelInterface
     public static function __callStatic( $name, $args ) {
         //User::getByEmail('a@b.c')
         $vars = get_class_vars(__CLASS__);
+
+        //TODO...
+
     }
 	
 	

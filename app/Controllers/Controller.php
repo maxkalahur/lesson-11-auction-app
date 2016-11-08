@@ -3,14 +3,15 @@ namespace App\Controllers;
 
 abstract class Controller
 {
-    private $serviceContainer;
-    private $db;
-    private $config;
+    protected $servicesContainer;
+    protected $db;
+    protected $config;
 
-    public function __construct( $config, $db, $serviceContainer ) {
+    public function __construct( $config, $db, $servicesContainer ) {
 
         $this->db = $db;
-        //..
+        $this->config = $config;
+        $this->servicesContainer = $servicesContainer;
 
 
     }
