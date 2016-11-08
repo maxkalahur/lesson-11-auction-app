@@ -25,6 +25,7 @@ class Auth implements AuthInterface
     public static function logout(){
 
     }
+
     public static function register( User $user ){
 
         $user->save();

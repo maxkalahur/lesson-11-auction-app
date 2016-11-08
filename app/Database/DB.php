@@ -3,7 +3,8 @@
 namespace App\Database;
 
 use App\Database\DatabaseInterface;
-use \Exception;
+use \PDOException;
+use \PDO as PDO;
 
 class DB implements DatabaseInterface
 {
@@ -11,21 +12,25 @@ class DB implements DatabaseInterface
 	protected $user = '';
 	protected $pass = '';
 	protected $db = '';
-	
+	protected static $instance;
+	protected $pdo;
+
 	public static function init( $host, $user, $pass, $db ) {
-		
-		static $instance;
-		if( $instance ) return $instance;
+
+		if( self::$instance ) return self::$instance;
 		
 		try {
-			//...connecting
             $instance = new DB;
-		}
-		catch(Exception $e) {
-			echo $e->getMessage();
-		}
+            $instance->pdo = new PDO("mysql:host={$host};dbname={$db};charset=utf8mb4", $user, $pass);
+            $instance->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $instance->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            self::$instance = $instance;
+        }
+		catch (PDOException $e) {
+            echo $e->getMessage();
+        }
 		
-		return $instance;
+		return self::$instance;
 	}
 	
 	private function __construct() {
@@ -34,6 +39,11 @@ class DB implements DatabaseInterface
 
     public static function select( String $query, Array $args = [] ) {
 
+        $db = self::$instance;
+        $stmt = $db->pdo->prepare($query);
+        $stmt->execute($args);
+
+        return $stmt->fetchAll();
     }
 
     public static function delete( String $query, Array $args = [] ) {
