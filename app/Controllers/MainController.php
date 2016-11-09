@@ -17,6 +17,8 @@ class MainController extends Controller
 
         $users = User::all();
 
+        $user = User::getByEmail('test@.xx.xx');
+
 //        var_dump( $this->servicesContainer->emailSender );
 //        var_dump( $this->config->get('db.host') );
 

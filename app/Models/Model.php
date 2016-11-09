@@ -21,7 +21,7 @@ abstract class Model implements ModelInterface
 	public static function get(Int $id) {
 
         $model = new static;
-		return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `id`=$id"));
+		return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `id`=?", [$id]));
 	}
 
 	public function hydrate(Array $data) {
@@ -67,7 +67,12 @@ abstract class Model implements ModelInterface
         //User::getByEmail('a@b.c')
         $vars = get_class_vars(__CLASS__);
 
-        //TODO...
+        $model = new static;
+
+        if( substr( $name, 0, 5 ) === "getBy" ) {
+            $var = lcfirst(substr($name, 5));
+            return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `$var`=?",[$args[0]]));
+        }
 
     }
 	
