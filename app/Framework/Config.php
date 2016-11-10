@@ -23,6 +23,9 @@ class Config
         return $instance;
     }
 
+    /**
+     * Config constructor.
+     */
     private function __construct() {
 
         try {
