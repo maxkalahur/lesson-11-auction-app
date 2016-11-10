@@ -1,39 +1,80 @@
 <?php
+namespace App\Models;
 
 use App\Models\ModelInterface;
 use App\Database\DB;
-
-namespace App\Models;
 
 abstract class Model implements ModelInterface
 {
 	protected $table;
 	
-	public function __construct($data = null) {
-		
-		if( is_int($data) ) {
-			return self::get($data);
-		}
-		else if( is_array ($data) ) {
-			return self::hydrate($data);
-		}
-		
-		return $this;
+	public function __construct() {
+
 	}
 	
-	static public function all(): Array {
-		
-		return DB::select("SELECT * FROM $table");
+	public static function all() {
+
+	    $model = new static;
+	    return $model->hydrate(DB::select("SELECT * FROM $model->table"));
 	}
-	static public function get(Int $id): Array {
-		
-		return DB::select("SELECT * FROM $table WHERE `id`=$id");
+
+	public static function get(Int $id) {
+
+        $model = new static;
+		return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `id`=?", [$id]));
 	}
-	static public function hydrate(Array $data): Model {
-		
-		
+
+	public function hydrate(Array $data) {
+
+	    $res = [];
+	    foreach( $data as $item ) {
+            $res[] = $model = new $this;
+
+            // mapping...
+            foreach ($item as $key => $val) {
+
+                $vars = get_object_vars($model);
+
+                if (array_key_exists($key, $vars)) {
+                    $setVarMethod = 'set' . ucfirst($key);
+                    $model->$setVarMethod($val);
+                }
+            }
+        }
+
+        return count($res) === 1 ? $res[0] : $res ;
 	}
-	
+
+
+    public function __call( $name, $args ) {
+        //(User::get(1))->getEmail();
+
+        $vars = get_object_vars($this);
+
+        if( substr( $name, 0, 3 ) === "get" ) {
+            $var = lcfirst(substr($name, 3));
+            return $this->$var;
+        }
+
+        if( substr( $name, 0, 3 ) === "set" ) {
+            $var = lcfirst(substr($name, 3));
+            $this->$var = $args[0];
+        }
+
+    }
+
+    public static function __callStatic( $name, $args ) {
+        //User::getByEmail('a@b.c')
+        $vars = get_class_vars(__CLASS__);
+
+        $model = new static;
+
+        if( substr( $name, 0, 5 ) === "getBy" ) {
+            $var = lcfirst(substr($name, 5));
+            return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `$var`=?",[$args[0]]));
+        }
+
+    }
 	
 	
 }

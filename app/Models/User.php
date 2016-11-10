@@ -1,19 +1,17 @@
 <?php
+namespace App\Models;
 
 use App\Models\Model;
+use App\Models\Lot;
 
-namespace App\Models;
 
 class User extends Model
 {
 	protected $table = 'users';
-	protected $name;
+	protected $id, $name, $email, $pass;
 	
-	public function setName( $name ) {
-		$this->name = $name;
-	}
-	public function getName() {
-		return $this->name;
-	}
+	public function lots() {
+	    return Lot::getByUserId( $this->id );
+    }
 	
 }
