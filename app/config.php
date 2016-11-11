@@ -5,6 +5,6 @@ $config = [
         'host' => 'localhost',
         'user' => 'root',
         'password' => 'euflfq',
-        'database' => 'AUCTION'
+        'database' => 'auction'
     ],
 ];

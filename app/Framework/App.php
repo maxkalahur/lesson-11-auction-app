@@ -29,9 +29,6 @@ class App
 
         if( $routeHandler = (Routing::init())->getCurrRouteHandler() ) {
             $servicesContainer = new ServicesContainer();
-              $validation=new Validator();
-            var_dump($validation->validation(['name'=>'vov', 'email'=>'1kaa@gmail.com',
-                                                     'password'=>'adqe3d32', 'message'=>'da asdwq wq']));
 
             $className = 'App\Controllers\\'. $routeHandler[0];
             $methodName = $routeHandler[1];
