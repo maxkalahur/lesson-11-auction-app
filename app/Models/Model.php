@@ -6,28 +6,28 @@ use App\Database\DB;
 
 abstract class Model implements ModelInterface
 {
-	protected $table;
-	
-	public function __construct() {
+    protected $table;
 
-	}
-	
-	public static function all() {
+    public function __construct() {
 
-	    $model = new static;
-	    return $model->hydrate(DB::select("SELECT * FROM $model->table"));
-	}
+    }
 
-	public static function get(Int $id) {
+    public static function all() {
 
         $model = new static;
-		return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `id`=?", [$id]));
-	}
+        return $model->hydrate(DB::select("SELECT * FROM $model->table"));
+    }
 
-	public function hydrate(Array $data) {
+    public static function get(Int $id) {
 
-	    $res = [];
-	    foreach( $data as $item ) {
+        $model = new static;
+        return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `id`=?", [$id]));
+    }
+
+    public function hydrate(Array $data) {
+
+        $res = [];
+        foreach( $data as $item ) {
             $res[] = $model = new $this;
 
             // mapping...
@@ -43,7 +43,7 @@ abstract class Model implements ModelInterface
         }
 
         return count($res) === 1 ? $res[0] : $res ;
-	}
+    }
 
 
     public function __call( $name, $args ) {
@@ -75,6 +75,27 @@ abstract class Model implements ModelInterface
         }
 
     }
-	
-	
+    public function save(){
+        $vars = get_object_vars($this);
+        $strArr = [];
+        foreach( $vars as $key => $var ) {
+            if($key == 'table' || !$var){
+                continue;
+            }
+            $strArr[] = $key . '="' . $var .'"';
+        }
+
+        $query = join(',',$strArr);
+
+        if( !$this->getId() ) {
+            DB::insert("INSERT INTO $this->table SET $query");
+            $this->setId(DB::getLastId());
+        }
+        else {
+            DB::update("UPDATE $this->table SET $query");
+        }
+
+
+    }
+
 }
