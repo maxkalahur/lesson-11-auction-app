@@ -5,6 +5,7 @@ use App\Framework\Config;
 use App\Framework\Routing;
 use App\Database\DB;
 use App\Services\ServicesContainer;
+use App\Services\Validator\Validator;
 
 class App
 {
@@ -27,7 +28,6 @@ class App
         );
 
         if( $routeHandler = (Routing::init())->getCurrRouteHandler() ) {
-
             $servicesContainer = new ServicesContainer();
 
             $className = 'App\Controllers\\'. $routeHandler[0];
