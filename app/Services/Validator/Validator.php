@@ -31,7 +31,11 @@ class Validator
                 }
             }
         }
-        return $result;
+        if(in_array(false, $result))
+        return false;
+        else{
+            return true;
+        }
     }
 }
 
