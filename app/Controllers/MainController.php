@@ -13,10 +13,11 @@ class MainController extends Controller
         include "app/Views/header.html.php";
         include "app/Views/main.html.php";
         $validation=new Validator();
-        var_dump($validation->validation(['name'=>['require'],
-            'email'=>['require', 'email'],
-            'password'=>['require']],
-            ['name'=>'vov', 'email'=>'1kaa@mail.com', 'password'=>'asdcas', 'message'=>'da asdwq wq']));
+        var_dump($validation->validation(['name'=>['require', 'string'],
+            'email'=>['email', 'require'],
+            'password'=>['require'],
+            'message'=>['string','require']],
+            ['name'=>'vova', 'email'=>'1kaa@mail.com', 'password'=>'sdadsa', 'message'=>'da asdwq wq']));
 
         $user = User::get(1);
         $email = $user->getEmail();

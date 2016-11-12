@@ -13,30 +13,43 @@ class Validator implements ValidatorInterface
         }
     }
 
-  protected function require($data){
-      return is_string($data);
-  }
-  protected function numeric($data){
-      return is_numeric($data);
-  }
+    protected function require ($data)
+    {
+        if (!empty($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected function string($data)
+    {
+        return is_string($data);
+    }
+
+    protected function numeric($data)
+    {
+        return is_numeric($data);
+    }
 
     public function validation($validation_data = [], $data = [])
     {
-        if (!empty($data)) {
-            foreach ($validation_data as $key => $rules) {
-                if (isset($data[$key])) {
-                    foreach ($rules as $rule) {
-                      $result[]=$this->$rule($data[$key]);
-                    }
+        foreach ($validation_data as $key => $rules) {
+            foreach ($rules as $rule) {
+                if (in_array("require", $rules) && $this->require($data[$key])) {
+                    $result["$key: $rule"]=$this->$rule($data[$key]);
+                } else {
+                    $result["$key: $rule"]= $this->$rule($data[$key]);
                 }
             }
         }
-        if(in_array(false, $result))
-        return false;
+        if(!in_array(false, $result))
+           return true;
         else{
-            return true;
+            var_dump(array_search(false, $result));
+            return false;
         }
-    }
-}
+        }
 
+}
 

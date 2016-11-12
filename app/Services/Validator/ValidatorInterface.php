@@ -11,7 +11,10 @@ namespace App\Services\Validator;
 
 interface ValidatorInterface
 {
+    /**
+     * @param $validation_data  get rules validation
+     * @param $data  get data for validation
+     * @return mixed return false in the event of fail or true in the event of success
+     */
     public function validation($validation_data, $data);
-    //main method validation data which get data for validation it`s first argument "$validation_data"
-    //and get rules validation it`s two argument "$data" which call need method which execute validation 
 }
