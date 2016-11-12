@@ -2,7 +2,7 @@
 
 namespace App\Services\Validator;
 
-class Validator
+class Validator implements ValidatorInterface
 {
     protected function email($email)
     {
