@@ -15,7 +15,7 @@ class Auth implements AuthInterface
         $credentials['email'] ;
         $credentials['pass'];
 
-        $arguments = [$credentials['email'],$credentials['pass']];
+        $arguments = [$credentials['email'],md5($credentials['pass'])];
 
         // DB select
         $res = DB::select("SELECT * FROM users WHERE `email` =? AND `password` = ?",$arguments);

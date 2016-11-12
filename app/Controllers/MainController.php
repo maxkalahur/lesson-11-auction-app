@@ -9,8 +9,9 @@ class MainController extends Controller
 {
 
     public function index() {
-        echo 'Main Page';
 
+        include "app/Views/header.html.php";
+        include "app/Views/main.html.php";
         $validation=new Validator();
         var_dump($validation->validation(['name'=>['require', 'string'],
             'email'=>['require', 'string', 'email'],
