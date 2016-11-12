@@ -8,7 +8,7 @@ use App\Auth\Auth;
 
 class AuthController extends Controller
 {
-    public static function login()
+    public function login()
     {
         $postForm = isset($_POST['login']) ? $_POST['login'] : null;
             if ($postForm){
@@ -23,7 +23,7 @@ class AuthController extends Controller
         include "app/Views/header.html.php";
         include "app/Views/login.html.php";
     }
-    public static function registration()
+    public function registration()
     {
 
         $postForm = isset($_POST['reg']) ? $_POST['reg'] : null;
