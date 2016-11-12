@@ -13,12 +13,11 @@ class MainController extends Controller
         include "app/Views/header.html.php";
         include "app/Views/main.html.php";
         $validation=new Validator();
-        var_dump($validation->validation(['name'=>['require', 'string'],
-            'email'=>['require', 'string', 'email'],
-            'password'=>['require', 'string']],
+        var_dump($validation->validation(['name'=>['require'],
+            'email'=>['require', 'email'],
+            'password'=>['require']],
             ['name'=>'vov', 'email'=>'1kaa@mail.com', 'password'=>'asdcas', 'message'=>'da asdwq wq']));
 
-//        $user = new User();
         $user = User::get(1);
         $email = $user->getEmail();
 
@@ -26,32 +25,9 @@ class MainController extends Controller
 
         $user = User::getByEmail('test@.xx.xx');
 
-//        var_dump( $this->servicesContainer->emailSender );
-//        var_dump( $this->config->get('db.host') );
-
-//        $users = User::all();
-
         exit();
         $user = User::get(1);
         $userLots = $user->lots();
-
-
-        //
-//        $validator = new Validator();
-//
-//        $data = [
-//            'name' => 'Misha',
-//            'email' => 'a@s.x',
-//            'pass' => 'xxxaasd',
-//            'phone' => '123'
-//        ];
-//
-//        $res = $validator->validate([
-//                'name' => ['required','string'],
-//                'email' => ['required','string'],
-//                'pass' => ['required']
-//            ],
-//            $data);
 
     }
 

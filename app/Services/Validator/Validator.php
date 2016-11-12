@@ -14,10 +14,10 @@ class Validator
     }
 
   protected function require($data){
-      return true;
-  }
-  protected function string($data){
       return is_string($data);
+  }
+  protected function numeric($data){
+      return is_numeric($data);
   }
 
     public function validation($validation_data = [], $data = [])

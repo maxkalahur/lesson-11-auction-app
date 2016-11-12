@@ -28,20 +28,17 @@ class AuthController extends Controller
 
         $postForm = isset($_POST['reg']) ? $_POST['reg'] : null;
         if ($postForm){
-<<<<<<< HEAD
             $user = new User();
             $user->setName('name2');
             $user->setEmail('ler@mail.ru');
             $user->setPassword('56544545561');
             var_dump($user);
-=======
 
             $user = new User();
             $user->setName($postForm['name']);
             $user->setEmail($postForm['email']);
             $user->setPassword(md5($postForm['password']));
 
->>>>>>> 6c7668a96ad8fb97fe2c42e41fc991d4926623b6
             Auth::register($user);
         }
         include "app/Views/header.html.php";

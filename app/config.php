@@ -4,7 +4,7 @@ $config = [
     'db' => [
         'host' => 'localhost',
         'user' => 'root',
-        'password' => 'root',
+        'password' => 'euflfq',
         'database' => 'auction'
     ],
 ];
