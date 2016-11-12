@@ -15,5 +15,8 @@ $routes = [
     '/admin' => [
         'handler' => ['AdminController','index'],
         'policy' => 'is_admin'
-    ]
+    ],
+    '/login' => ['handler' => ['AuthController','login']],
+    '/registration' => ['handler' => ['AuthController','registration']]
+
 ];

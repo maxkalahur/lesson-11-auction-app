@@ -8,7 +8,7 @@ use App\Models\Lot;
 class User extends Model
 {
 	protected $table = 'users';
-	protected $id, $name, $email, $pass;
+	protected $id, $name, $email, $password;
 	
 	public function lots() {
 	    return Lot::getByUserId( $this->id );
