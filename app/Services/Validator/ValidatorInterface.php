@@ -14,15 +14,9 @@ interface ValidatorInterface
      *       'email'=>['require', 'email'],
      *       'password'=>['require'],
      *       'phone'=>['numeric'],
-     *       'message'=>['string']
-     *   ], $data );
-<<<<<<< HEAD
-     *
+     *       'message'=>['string']], $data );
      * @param $validation_data - Array of elements and rules to be validated.
-=======
-     *       
-     * @param $validation_data - Array of elements and rules to be validated. 
->>>>>>> 7de4538f41f1c2f63eef1881419e69c6c2086986
+     * @param $validation_data - Array of elements and rules to be validated.
      * @param $data - Array of elements to be validated
      * @return mixed return if fail - Array of errors, if success - true
      */
