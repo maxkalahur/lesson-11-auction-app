@@ -16,7 +16,7 @@ class FBAuth{
         $helper = $fb->getRedirectLoginHelper();
 
         $permissions = ['email']; // Optional permissions
-        $loginUrl = $helper->getLoginUrl('http://sudo.local.mysite.com/call-back', $permissions);
+        $loginUrl = $helper->getLoginUrl('http://sudo.local.mysite.com/login-callback', $permissions);
 
         echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
     }

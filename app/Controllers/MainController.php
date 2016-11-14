@@ -16,10 +16,11 @@ class MainController extends Controller
         $aa = new FBAuth();
         $aa->auth();
         $validation=new Validator();
-        var_dump($validation->validation(['name'=>['require'],
-            'email'=>['require', 'email'],
-            'password'=>['require']],
-            ['name'=>'vov', 'email'=>'1kaa@mail.com', 'password'=>'asdcas', 'message'=>'da asdwq wq']));
+        var_dump($validation->validation(['name'=>['require', 'string'],
+            'email'=>['email', 'require'],
+            'password'=>['require', 'string'],
+            'message'=>['string','require']],
+            ['name'=>'vova', 'email'=>'1kaa@mail.com', 'password'=>'dasdas', 'message'=>'da asdwq wq']));
 
         $user = User::get(1);
         $email = $user->getEmail();
