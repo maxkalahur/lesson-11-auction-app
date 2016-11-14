@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vova
- * Date: 12.11.16
- * Time: 15:50
- */
 
 namespace App\Services\Validator;
 
@@ -22,8 +16,13 @@ interface ValidatorInterface
      *       'phone'=>['numeric'],
      *       'message'=>['string']
      *   ], $data );
+<<<<<<< HEAD
      *
      * @param $validation_data - Array of elements and rules to be validated.
+=======
+     *       
+     * @param $validation_data - Array of elements and rules to be validated. 
+>>>>>>> 7de4538f41f1c2f63eef1881419e69c6c2086986
      * @param $data - Array of elements to be validated
      * @return mixed return if fail - Array of errors, if success - true
      */
