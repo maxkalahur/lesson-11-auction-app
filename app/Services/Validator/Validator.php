@@ -34,21 +34,16 @@ class Validator implements ValidatorInterface
 
     public function validation($validation_data = [], $data = [])
     {
+        $errors=[];
         foreach ($validation_data as $key => $rules) {
-            foreach ($rules as $rule) {
-                if (in_array("require", $rules) && $this->require($data[$key])) {
-                    $result["$key: $rule"]=$this->$rule($data[$key]);
-                } else {
-                    $result["$key: $rule"]= $this->$rule($data[$key]);
+            if (!empty($rules)) {
+                foreach ($rules as $rule) {
+                    if ( !$this->$rule($data[$key]))
+                        $errors["$key: $rule"] = $this->$rule($data[$key]);
                 }
             }
         }
-        if(!in_array(false, $result))
-           return true;
-        else{
-            var_dump(array_search(false, $result));
-            return false;
-        }
+         return (empty($errors))? true :  $errors;
         }
 
 }

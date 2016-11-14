@@ -15,9 +15,9 @@ class MainController extends Controller
         $validation=new Validator();
         var_dump($validation->validation(['name'=>['require', 'string'],
             'email'=>['email', 'require'],
-            'password'=>['require'],
+            'password'=>['require', 'string'],
             'message'=>['string','require']],
-            ['name'=>'vova', 'email'=>'1kaa@mail.com', 'password'=>'sdadsa', 'message'=>'da asdwq wq']));
+            ['name'=>'vova', 'email'=>'1kaa@mail.com', 'password'=>'dasdas', 'message'=>'da asdwq wq']));
 
         $user = User::get(1);
         $email = $user->getEmail();
