@@ -14,86 +14,40 @@ class FBAuth{
         ]);
 
         $helper = $fb->getRedirectLoginHelper();
+//        var_dump($helper);
+        $permissions = ['email'];
+            $url2 = 'https://graph.facebook.com//oauth/access_token?
+client_id=377416752598790
+&redirect_uri=http://mysite.com/fb-callback
+&client_secret=4b5386c673b061e43ff18932023403f6
+&code=AQDXE1CeMJqeaFF0aWmIddNuwExHoIzseuHJL8zQbD14ivb0ZBln7wiJ2Fk8eXYjGQbitMn9BbqtIHP2imLd3WdEei491Y5s4JZQc4x1C0f0di0xc0W4xgUjuu0KB3jWuQdy39yMo53kIKfUuLZFF3xbo3EOgD_FDbm6ESOREBCLFBcaNDvH-ccSLkwyFnTy63yIs30RdY41V0X1WW4J5Op2CQ1en4VpoOEJSQkVD4k7bD9XWKBlxQ8AxUdoC-ffv_veaMjiE3PBQyy9XOnVJQSG-qnd4UHVaQQWpjR0JHlc9RTvFZs0HC-69omBfPvKuvA0wuxc79wNOLBUhajTO-eW#_=_';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url2);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([], null, '&'));
+        $ret = curl_exec($ch);
+        curl_close($ch);
+        echo $ret;
+        // Optional permissions
+        $loginUrl = $helper->getLoginUrl('http://mysite.com/fb-callback',$permissions);
 
-        $permissions = ['email']; // Optional permissions
-        $loginUrl = $helper->getLoginUrl('http://sudo.local.mysite.com/login-callback', $permissions);
-
-        echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
+        echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a><br>';
+        echo '<a href="https://www.facebook.com/v2.8/dialog/oauth?client_id=377416752598790&redirect_uri=http://mysite.com/fb-callback">Log in with Facebook!</a>';
     }
 
     public function callBack()
     {
-        $fb = new Facebook\Facebook([
-            'app_id' => '{app-id}', // Replace {app-id} with your app id
-            'app_secret' => '{app-secret}',
-            'default_graph_version' => 'v2.2',
-        ]);
 
-        $helper = $fb->getRedirectLoginHelper();
-
-        try {
-            $accessToken = $helper->getAccessToken();
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
-            // When Graph returns an error
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
-            // When validation fails or other local issues
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
-        }
-
-        if (! isset($accessToken)) {
-            if ($helper->getError()) {
-                header('HTTP/1.0 401 Unauthorized');
-                echo "Error: " . $helper->getError() . "\n";
-                echo "Error Code: " . $helper->getErrorCode() . "\n";
-                echo "Error Reason: " . $helper->getErrorReason() . "\n";
-                echo "Error Description: " . $helper->getErrorDescription() . "\n";
-            } else {
-                header('HTTP/1.0 400 Bad Request');
-                echo 'Bad request';
-            }
-            exit;
-        }
-
-        // Logged in
-                echo '<h3>Access Token</h3>';
-                var_dump($accessToken->getValue());
-
-        // The OAuth 2.0 client handler helps us manage access tokens
-                $oAuth2Client = $fb->getOAuth2Client();
-
-        // Get the access token metadata from /debug_token
-                $tokenMetadata = $oAuth2Client->debugToken($accessToken);
-                echo '<h3>Metadata</h3>';
-                var_dump($tokenMetadata);
-
-        // Validation (these will throw FacebookSDKException's when they fail)
-//                $tokenMetadata->validateAppId({377416752598790}); // Replace {app-id} with your app id
-        // If you know the user ID this access token belongs to, you can validate it here
-        //$tokenMetadata->validateUserId('123');
-        $tokenMetadata->validateExpiration();
-
-        if (! $accessToken->isLongLived()) {
-            // Exchanges a short-lived access token for a long-lived one
-            try {
-                $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
-            } catch (Facebook\Exceptions\FacebookSDKException $e) {
-                echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
-                exit;
-            }
-
-            echo '<h3>Long-lived</h3>';
-            var_dump($accessToken->getValue());
-        }
-
-        $_SESSION['fb_access_token'] = (string) $accessToken;
-
-        // User is logged in with a long-lived access token.
-        // You can redirect them to a members-only page.
-        //header('Location: https://example.com/members.php');
     }
 }
 
+$url2 = 'https://graph.facebook.com//oauth/access_token?client_id=377416752598790&redirect_uri=http://mysite.com/fb-callback&client_secret=4b5386c673b061e43ff18932023403f6&code=AQCcYFKiEn5yXOfhIGeGuZm7_yf3-7BR3mw1Kk7eqM87zJ4mnwm0OTRoJrk4P3qOXRb4FCA_4U8sSwtjA5s95YYABdBml_hyfPfGx_27dUWKMnulHIuLpGTIs_Vb-bXXx39pULTr85lUbI0z17JC1SfCM8sC4F5p7H28fyxyWEHsMh_ZQ_vYmhpjQLpvCkYXm10kmROeO9s44J6jLNq46GbuTeSgNTmrU0-tux1K99gKM_-rFx57eCIK2LEQUVOOSvKLJPJB4y_-u6V_vAm0AKjiPEzKcaXSUFG4zZWuXqQNpMLm25TkAzocZasOGM0phApkG8ZDv49IfzhccyKiUeJP#_=_';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url2);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([], null, '&'));
+$ret = curl_exec($ch);
+curl_close($ch);
+var_dump($ret);
+//echo "$url2.<br>";
 

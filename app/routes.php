@@ -17,6 +17,8 @@ $routes = [
         'policy' => 'is_admin'
     ],
     '/login' => ['handler' => ['AuthController','login']],
-    '/registration' => ['handler' => ['AuthController','registration']]
+    '/registration' => ['handler' => ['AuthController','registration']],
+    '/fb-callback' => ['handler' => ['FBAuth','callBack']],
+
 
 ];
