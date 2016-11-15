@@ -1,8 +1,4 @@
 /vendor/
 /.idea/
 .idea
-<<<<<<< HEAD
 /app/config.php
-=======
-/app/config.php
->>>>>>> 11e43d1cf9df04418351ecc47f0eeb41f6224c92
