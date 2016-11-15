@@ -11,7 +11,7 @@ class Auth implements AuthInterface
     private static $user;
 
     public static function login( Array $credentials ){
-        var_dump($credentials);
+
         $credentials['email'] ;
         $credentials['pass'];
 
