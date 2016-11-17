@@ -22,7 +22,7 @@ $routes = [
     ],
     '/login' => ['handler' => ['AuthController','login']],
     '/registration' => ['handler' => ['AuthController','registration']],
-    '/fb-callback' => ['handler' => ['FBAuth','callBack']],
+    '/fb-callback' => ['handler' => ['AuthController','fbCallBack']]
 
 
 ];
