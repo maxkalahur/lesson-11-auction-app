@@ -6,6 +6,6 @@ use App\Models\Model;
 
 class Catalog extends Model
 {
-    protected $table='catalog';
-    public $id, $name;
+    protected $table='categories';
+    public $id, $name, $parent;
 }

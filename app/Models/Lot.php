@@ -7,5 +7,5 @@ use App\Models\Model;
 class Lot extends  Model
 {
     protected $table="lots";
-    public $id, $buyer_id, $merchant_id, $category_id, $description, $time_finish, $rate;
+    public $id, $buyer_id, $merchant_id, $category_id, $description, $time_finish, $rate, $name;
 }
