@@ -5,6 +5,7 @@ namespace App\Services\Validator;
 
 interface ValidatorInterface
 {
+
     /** Validation of data according to rules: 'require'(element exists), 'email', 'string', 'numeric'
      *
      * Example:

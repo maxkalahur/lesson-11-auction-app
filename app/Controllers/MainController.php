@@ -4,20 +4,19 @@ namespace App\Controllers;
 use App\Controllers\Controller;
 use App\Models\User;
 use App\Services\Validator\Validator;
+use App\Framework\View;
 
 class MainController extends Controller
 {
 
     public function index() {
-
-        include "app/Views/header.html.php";
-        include "app/Views/main.html.php";
+          View::show("main");
         $validation=new Validator();
-        var_dump($validation->validation(['name'=>['require', 'string'],
+        $validation->validation(['name'=>['require', 'string'],
             'email'=>['email', 'require'],
             'password'=>['require', 'string'],
             'message'=>['string','require']],
-            ['name'=>'vova', 'email'=>'1kaa@mail.com', 'password'=>'dasdas', 'message'=>'da asdwq wq']));
+            ['name'=>'vova', 'email'=>'1kaa@mail.com', 'password'=>'dasdas', 'message'=>'da asdwq wq']);
 
         $user = User::get(1);
         $email = $user->getEmail();

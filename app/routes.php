@@ -7,6 +7,10 @@ $routes = [
 
     '/catalog/(.)*' => ['handler' => ['CatalogController','showCategory']],
 
+    '/lot' => ['handler' => ['LotController', 'showLot']],
+
+    '/lot/(.)*'=>['handler' => ['LotController', 'withCategory']],
+
     '/account' => [
         'handler' => ['AccountController','index'],
         'policy' => 'is_user'

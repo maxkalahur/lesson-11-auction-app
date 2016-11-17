@@ -35,8 +35,6 @@ class App
 
             $controller = new $className( $config, $database, $servicesContainer );
             $controller->$methodName();
-
-
         }
         else {
             echo '404';

@@ -25,19 +25,13 @@ class AuthController extends Controller
     }
     public function registration()
     {
-
         $postForm = isset($_POST['reg']) ? $_POST['reg'] : null;
         if ($postForm){
-            $user = new User();
-            $user->setName('name2');
-            $user->setEmail('ler@mail.ru');
-            $user->setPassword('56544545561');
-            var_dump($user);
-
             $user = new User();
             $user->setName($postForm['name']);
             $user->setEmail($postForm['email']);
             $user->setPassword(md5($postForm['password']));
+            var_dump($user);
 
             Auth::register($user);
         }
