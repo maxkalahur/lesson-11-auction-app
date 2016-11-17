@@ -27,13 +27,27 @@ class AuthController extends Controller
     {
         $postForm = isset($_POST['reg']) ? $_POST['reg'] : null;
         if ($postForm){
+
             $user = new User();
             $user->setName($postForm['name']);
             $user->setEmail($postForm['email']);
             $user->setPassword(md5($postForm['password']));
             var_dump($user);
 
-            Auth::register($user);
+            $validation = new Validator();
+            $validateCheck = $validation->validation(
+                ['name'=>['require', 'string'],
+                'email'=>['email', 'require'],
+                'password'=>['require', 'string']],
+                ['name'=>$postForm['name'], 'email'=>$postForm['email'], 'password'=>$postForm['password']]);
+            if ($validateCheck){
+                $user = new User();
+                $user->setName($postForm['name']);
+                $user->setEmail($postForm['email']);
+                $user->setPassword(md5($postForm['password']));
+                Auth::register($user);
+            }
+
         }
         include "app/Views/header.html.php";
         include "app/Views/registration.html.php";

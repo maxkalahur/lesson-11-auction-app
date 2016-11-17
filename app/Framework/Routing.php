@@ -37,7 +37,8 @@ class Routing
 
     public function getCurrRouteHandler()
     {
-        $route = ( $_SERVER['REQUEST_URI'] != '/' ) ? rtrim($_SERVER['REQUEST_URI'],'/') : '/';
+        $uriSections = explode('?', $_SERVER['REQUEST_URI'], 2);
+        $route = ( $_SERVER['REQUEST_URI'] != '/' ) ? rtrim($uriSections[0],'/') : '/';
         foreach ($this->routes as $routePattern => $val) {
             if( preg_match( '/^'.addcslashes($routePattern,'/').'$/', $route) ) {
 

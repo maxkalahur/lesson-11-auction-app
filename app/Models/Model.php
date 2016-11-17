@@ -78,16 +78,16 @@ abstract class Model implements ModelInterface
         }
 
     }
-    public function save(){
+    public function save()
+    {
         $vars = get_object_vars($this);
         $strArr = [];
         foreach( $vars as $key => $var ) {
-            if($key == 'table' || !$var){
+            if ($key == 'table' || !$var) {
                 continue;
             }
             $strArr[] = $key . '="' . $var .'"';
         }
-
         $query = join(',',$strArr);
 
         if( !$this->getId() ) {

@@ -32,6 +32,7 @@ class App
 
             $className = 'App\Controllers\\'. $routeHandler[0];
             $methodName = $routeHandler[1];
+            var_dump($methodName);
 
             $controller = new $className( $config, $database, $servicesContainer );
             $controller->$methodName();

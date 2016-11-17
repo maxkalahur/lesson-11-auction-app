@@ -17,7 +17,6 @@ interface ValidatorInterface
      *       'phone'=>['numeric'],
      *       'message'=>['string']], $data );
      * @param $validation_data - Array of elements and rules to be validated.
-     * @param $validation_data - Array of elements and rules to be validated.
      * @param $data - Array of elements to be validated
      * @return mixed return if fail - Array of errors, if success - true
      */

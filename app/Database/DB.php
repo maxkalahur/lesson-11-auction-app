@@ -67,7 +67,6 @@ class DB implements DatabaseInterface
 
     public static function insert( String $query, Array $args = [] ) {
         $db = self::$instance;
-        var_dump($query);
         $stmt = $db->pdo->prepare($query);
         $stmt->execute();
     }

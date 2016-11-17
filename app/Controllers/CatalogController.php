@@ -26,6 +26,7 @@ class CatalogController
        }else{
            $arr=['expand_cat'=>['0'=>$arr_obj]];
        }
+       var_dump($arr_obj);
        View::show("catalog", $arr);
    }
 
