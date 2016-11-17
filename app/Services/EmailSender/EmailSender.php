@@ -14,8 +14,12 @@ class EmailSender
 
     /**
      * OpenSSL PHP extension is needed!
+     *  Use in controller:
+     *      $email = $this->servicesContainer->emailSender;
+     *      $email->send( '****@gmail.com', 'test subject', 'text message' );
+     *
      * @param $config
-     * @param $email
+     * @param $email - recipient email
      * @param $subject
      * @param $message
      * @return int
