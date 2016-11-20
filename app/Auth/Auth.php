@@ -30,7 +30,7 @@ class Auth implements AuthInterface
 
     }
     public static function logout(){
-        unset($_SESSION[id]);
+        unset($_SESSION['user_id']);
     }
 
     public static function register( User $user ){

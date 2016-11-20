@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
+use App\Database\DB;
 use App\Models\User;
 use App\Services\Validator\Validator;
 use App\Auth\Auth;
@@ -54,6 +55,11 @@ class AuthController extends Controller
         include "app/Views/registration.html.php";
     }
 
+    public function logout(){
+        Auth::logout();
+        header('location: /login');
+    }
+
     public static function fbCallback()
     {
         View::show("header");
@@ -75,17 +81,23 @@ class AuthController extends Controller
         $ret2 = curl_exec($ch2);
         curl_close($ch2);
         $fbUser = json_decode($ret2);
-        $_SESSION['user_id'] =$fbUser->id;
+
         $newUserFb = new User();
-        echo $fbUser->id."<br>";
-        echo $fbUser->name."<br>";
-        echo $fbUser->email."<br>";
-        $newUserFb->setName($fbUser->name);
-        $newUserFb->setEmail($fbUser->email);
-        $newUserFb->setPassword(md5(uniqid()));
-        Auth::register($newUserFb);
-        var_dump($_SESSION);
 
+        $argument = [$fbUser->email,$fbUser->name];
+        $currentUser = DB::select("SELECT * FROM users WHERE `email` =? AND `name` =?",$argument);
+        if (empty($currentUser)){
 
+            $newUserFb->setName($fbUser->name);
+            $newUserFb->setEmail($fbUser->email);
+            $newUserFb->setPassword(md5(uniqid()));
+            Auth::register($newUserFb);
+            $_SESSION['user_id'] = DB::getlastId();
+        }
+        else {
+            $userId = $currentUser[0];
+            $_SESSION['user_id'] = $userId['id'];
+        }
+        header('location: /account');
     }
 }
