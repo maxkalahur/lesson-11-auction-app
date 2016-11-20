@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 10 2016 г., 23:45
+-- Время создания: Ноя 19 2016 г., 11:58
 -- Версия сервера: 5.7.16-0ubuntu0.16.04.1
 -- Версия PHP: 7.0.8-0ubuntu0.16.04.3
 
@@ -29,8 +29,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(250) CHARACTER SET latin1 DEFAULT NULL,
-  `parent` varchar(250) CHARACTER SET latin1 DEFAULT NULL
+  `parent` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `parent`) VALUES
+(1, 'Telephone', '0'),
+(2, 'Car', '0'),
+(3, 'Button', '1'),
+(4, 'Sensor', '1'),
+(5, 'Slider', '1'),
+(6, 'Sportcar', '2'),
+(7, 'Sedan', '2');
 
 -- --------------------------------------------------------
 
@@ -40,12 +53,26 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `lots` (
   `id` int(11) NOT NULL,
-  `buyer_id` int(11) NOT NULL,
+  `buyer_id` int(11) DEFAULT NULL,
   `merchant_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `description` text CHARACTER SET latin1,
-  `time_finish` datetime DEFAULT NULL
+  `time_finish` datetime DEFAULT NULL,
+  `bets_id` int(11) DEFAULT NULL,
+  `name` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `lots`
+--
+
+INSERT INTO `lots` (`id`, `buyer_id`, `merchant_id`, `category_id`, `description`, `time_finish`, `bets_id`, `name`) VALUES
+(4, NULL, 2, 3, 'tesa d', '2017-10-08 19:19:19', 2, 'Nokia123'),
+(5, NULL, 2, 4, 'tesa d', '2017-10-08 19:19:19', 2, 'Nexus'),
+(6, NULL, 2, 3, 'tesa d', '2017-10-08 19:19:19', 2, 'Lg 123'),
+(7, NULL, 2, 7, 'tesa d', '2017-10-08 19:19:19', 2, 'Volkswagen'),
+(8, NULL, 2, 7, 'tesa d', '2017-10-08 19:19:19', 2, 'bmw'),
+(9, NULL, 2, 6, 'tesa d', '2017-10-08 19:19:19', 2, 'Ferari');
 
 -- --------------------------------------------------------
 
@@ -101,6 +128,19 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `role`, `name`, `email`, `password`) VALUES
+(1, 'admin', 'andr', '1kaapaa@gmail.com', '076a5912a23e81b9cf0fb2346c79fb33'),
+(2, 'admin', 'vova', '1kaap@gmail.com', '076a5912a23e81b9cf0fb2346c79fb33'),
+(3, 'admin', 'zxc', '1', 'c4ca4238a0b923820dcc509a6f75849b'),
+(4, 'admin', 'zxc', '1', 'c4ca4238a0b923820dcc509a6f75849b'),
+(5, 'admin', 'zxc', '1', 'c4ca4238a0b923820dcc509a6f75849b'),
+(6, 'admin', 'zxc', '1', 'c4ca4238a0b923820dcc509a6f75849b'),
+(7, 'admin', 'zxc', '1', 'c4ca4238a0b923820dcc509a6f75849b');
+
+--
 -- Индексы сохранённых таблиц
 --
 
@@ -148,12 +188,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT для таблицы `lots`
 --
 ALTER TABLE `lots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT для таблицы `messages`
 --
@@ -173,7 +213,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
