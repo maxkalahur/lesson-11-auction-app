@@ -13,7 +13,7 @@ $routes = [
 
     '/account' => [
         'handler' => ['AccountController','index'],
-        'policy' => 'is_user'
+        'policy' => ['is_user']
     ],
 
     '/admin' => [
@@ -21,6 +21,7 @@ $routes = [
         'policy' => 'is_admin'
     ],
     '/login' => ['handler' => ['AuthController','login']],
+    '/logout' => ['handler' => ['AuthController','logout']],
     '/registration' => ['handler' => ['AuthController','registration']],
     '/fb-callback' => ['handler' => ['AuthController','fbCallBack']]
 
