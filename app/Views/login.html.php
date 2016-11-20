@@ -14,6 +14,13 @@
         <input type="submit" value="Log in" id="submit" class="btn btn-default"/>
     </form>
 </div>
+<a class="btn btn-block btn-social btn-twitter">
+    <span class="fa fa-twitter"></span> Sign in with Twitter
+</a>
+Or if you just want the icon button, use it like this:
 
+<a class="btn btn-social-icon btn-twitter">
+    <span class="fa fa-twitter"></span>
+</a>
 </body>
 </html>

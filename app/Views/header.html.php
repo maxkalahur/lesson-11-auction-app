@@ -8,6 +8,8 @@
 
     <link href="/app/Views/css/bootstrap.css" rel="stylesheet">
     <link type="text/css" href="/app/Views/css/bootstrap-theme.css" rel="stylesheet">
+    <link type="text/css" href="/app/Views/css/bootstrap-social.css" rel="stylesheet">
+    <link type="text/css" href="/app/Views/css/font-awesome.css" rel="stylesheet">
     <link type="text/css" href="/app/Views/css/jquery-ui.css" rel="stylesheet">
 
     <title>Auction</title>
