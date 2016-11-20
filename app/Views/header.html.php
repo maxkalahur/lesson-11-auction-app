@@ -11,6 +11,7 @@
     <link type="text/css" href="/app/Views/css/bootstrap-social.css" rel="stylesheet">
     <link type="text/css" href="/app/Views/css/font-awesome.css" rel="stylesheet">
     <link type="text/css" href="/app/Views/css/jquery-ui.css" rel="stylesheet">
+    <link type="text/css" href="/app/Views/css/style.css" rel="stylesheet">
 
     <title>Auction</title>
 </head>
@@ -28,10 +29,12 @@
         </div>
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav">
-                <li><a href="/login">Log in</a></li>
                 <li><a href="/registration">Registration</a></li>
                 <li><a href="/catalog">Catalog</a></li>
                 <li><a href="/lot">Lots</a></li>
+                <li><a href="/login">Log in</a></li>
+                <li><a href="/account">My account</a></li>
+                <li><a href="/logout">Log out</a></li>
             </ul>
         </div>
     </div>
