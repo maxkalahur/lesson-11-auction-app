@@ -11,10 +11,15 @@ class UploadsManager
     }
 
 
-    /**
+    /** Save lot image to filestorage
+     *
      * Example:
      *      $uploadsManager = $this->servicesContainer->uploadsManager;
      *      $fileName = $uploadsManager->saveLotImage($_FILES['lot_image']);
+     *
+     * WebPath:
+     * - origin: /images/lots/{file_name}.{ext}
+     * - thumb: /images/lots/{file_name}_150x150.{ext}
      *
      * @param $file - file element from $_FILES array
      * @return string
