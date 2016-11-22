@@ -55,3 +55,70 @@ $user = $data['user'];
 
 <hr>
 
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <h3>Your lots in auction</h3>
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Lot id</td>
+            <td>Category</td>
+            <td>Bets value</td>
+            <td>Buyer</td>
+            <td>Time to completion</td>
+        </tr>
+        <?php
+        if($data){
+            foreach ($data['lots'] as $key => $value) {
+                echo "<tr>";
+                echo "<td>".$value['name']."</td>";
+                echo "<td>".$value['description']."</td>";
+                echo "<td>".$value['id']."</td>";
+                echo "<td>".$value['category_id']."</td>";
+                echo "<td>".$value['bets_id']."</td>";
+                echo "<td>".$value['buyer_id']."</td>";
+                echo "<td>".$value['time_finish']."</td>";
+                echo "<tr>";
+                }
+        }
+        echo "</table>";
+        ?>
+</div>
+
+<hr>
+
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <h3>Your purchases and bets</h3>
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Lot id</td>
+            <td>Category</td>
+            <td>Bets value</td>
+            <td>Merchant</td>
+            <td>Time to completion</td>
+        </tr>
+        <?php
+        if($data){
+            foreach ($data['purchases'] as $key => $value) {
+                echo "<tr>";
+                echo "<td>".$value['name']."</td>";
+                echo "<td>".$value['description']."</td>";
+                echo "<td>".$value['id']."</td>";
+                echo "<td>".$value['category_id']."</td>";
+                echo "<td>".$value['bets_id']."</td>";
+                echo "<td>".$value['merchant_id']."</td>";
+                echo "<td>".$value['time_finish']."</td>";
+                echo "<tr>";
+            }
+
+        }
+
+        echo "</table>";
+
+        ?>
+
+</div>
+
+
