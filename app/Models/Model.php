@@ -23,10 +23,6 @@ abstract class Model implements ModelInterface
         $model = new static;
         return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `id`=?", [$id]));
     }
-    public static function getBYparametr(Int $id, String $string) {
-        $model = new static;
-        return $model->hydrate(DB::select("SELECT * FROM $model->table WHERE `$string`=?", [$id]));
-    }
 
     public function hydrate(Array $data) {
         $res = [];
