@@ -14,12 +14,7 @@ class MainController extends Controller
 {
 
     public function index() {
-
-          View::show("main");
-
-        $aa = new FBAuth();
-        $aa->auth();
-
+        View::show("main");
         $validation=new Validator();
         $validation->validation(['name'=>['require', 'string'],
             'email'=>['email', 'require'],
