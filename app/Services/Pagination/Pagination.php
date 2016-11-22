@@ -28,4 +28,22 @@ class Pagination
         $this->curr_page=$new_page;
         return $sql="SELECT * FROM `lots` LIMIT $this->curr_page, $this->limit_lots";
     }
+
+    public static function generate($page, $lotsAmount, $limit) {
+
+        $html = '<nav aria-label="page-navigation">
+                    <ul class="pagination">';
+
+            if( $page > 0 ) {
+                $html .= '<li><a href="?page=".$page--> << </a></li>'
+            }
+
+            
+
+
+        $html .= '</ul>
+                </nav>';
+    }
+
+
 }
