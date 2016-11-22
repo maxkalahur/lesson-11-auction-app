@@ -12,18 +12,27 @@ class AuthController extends Controller
 {
     public function login()
     {
+
+        var_dump($_POST);
         $postForm = isset($_POST['login']) ? $_POST['login'] : null;
+        var_dump($postForm);
             if ($postForm){
-                if (Auth::login($postForm)){
+                $asr = Auth::login($postForm);
+                var_dump($asr);
+                if ($asr){
                     if (isset($postForm['rememberMe'])){
-                        setcookie('password', md5($postForm['pass']), time()+9999999 );
+//                        setcookie('password', md5($postForm['pass']), time()+9999999 );
                     }
 
                     header('location: /account');
+                    exit();
+                    die();
                 }
             }
-        include "app/Views/header.html.php";
-        include "app/Views/login.html.php";
+        View::show('login');
+
+////        include "app/Views/header.html.php";
+//        include "app/Views/login.html.php";
     }
     public function registration()
     {
