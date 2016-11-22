@@ -6,11 +6,11 @@
 <?php
      if (!empty($data['parent_cat'][0])) {
          foreach ($data['parent_cat'] as $cat) {
-             echo "<li><a href='/catalog/?Parent_id=" . $cat->id . "'>" . $cat->name . "</a></li>";
+             echo "<li><a href='/catalog/?category-id=" . $cat->id . "'>" . $cat->name . "</a></li>";
              if (!empty($data['expand_cat'][0])) {
                  foreach ($data['expand_cat'] as $value) {
                      if($cat->id==$value->parent)
-                         echo "<li><a href='/catalog/?Category_id=" . $value->id . "'>---" . $value->name . "</a></li>";
+                         echo "<li><a href='/catalog/?category-id=" . $value->id . "'>---" . $value->name . "</a></li>";
                  }
              }
          }?>
@@ -30,6 +30,9 @@
                 }
             }?>
             <div class="row">
+
+                <?= $date['pagination']; ?>
+
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li>

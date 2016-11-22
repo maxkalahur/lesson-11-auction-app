@@ -41,7 +41,7 @@ abstract class Model implements ModelInterface
             }
         }
 
-        return count($res) === 1 ? $res[0] : $res ;
+        return $res ;
     }
 
 
