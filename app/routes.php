@@ -3,13 +3,13 @@
 $routes = [
     '/' => ['handler' => ['MainController','index']],
 
-    '/catalog' => ['handler' => ['CatalogController','index']],
+    '/catalog(.)*' => ['handler' => ['CatalogController','index']],
 
-    '/catalog/(.)*' => ['handler' => ['CatalogController','showCategory']],
+//    '/catalog/(.)*' => ['handler' => ['CatalogController','showCategory']],
 
     '/lot' => ['handler' => ['LotController', 'showLot']],
 
-    '/lot/(.)*'=>['handler' => ['LotController', 'withCategory']],
+    //'/lot/(.)*'=>['handler' => ['LotController', 'withCategory']],
 
     '/account' => [
         'handler' => ['AccountController','index'],
