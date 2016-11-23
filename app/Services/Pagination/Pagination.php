@@ -4,28 +4,32 @@ namespace App\Services\Pagination;
 
 class Pagination
 {
-    protected $curr_page;
-    protected $limit_lots;
-    public function __construct()
-    {
-        $this->curr_page=0;
-        $this->limit_lots=3;
-    }
-    public function set_limit($new_limit)
-    {
-        return $this->limit_lots=$new_limit;
-    }
-    public function next_page()
-    {
-        return $this->curr_page+$this->limit_lots;
-    }
-    public function prev_page()
-    {
-        return $this->curr_page-$this->limit_lots;
-    }
-    public  function load_page($new_page)
-    {
-        $this->curr_page=$new_page;
-        return $sql="SELECT * FROM `lots` LIMIT $this->curr_page, $this->limit_lots";
-    }
+  public static function generate($amountLots, $page, $limit){
+      $max_page=$amountLots/$limit;
+     $html ='<nav aria-label="Page navigation">
+                <ul class="pagination">';
+        if($page>0)
+        {
+            $html .= "<li>
+                        <a href = '/catalog/?page=". --$page ."'  aria - label = 'Previous' >
+                            << <span aria - hidden = 'true' >&laquo;</span >
+                        </a >
+                    </li >";
+        }
+                     for($page=0; $page<$max_page; $page++) {
+                         $html .= "<li><a href='/catalog/?page=" . $page . "'>$page</a></li>";
+                     }
+
+      if($page<$max_page)
+      {
+          $html .="<li >
+               <a href = '/catalog/?page=".++$page."' aria - label = 'Next'>
+                   >> <span aria - hidden = 'true' >&raquo;</span >
+               </a >
+            </li >";
+      }
+     $html .='</ul>
+          </nav>';
+      return $html;
+  }
 }
