@@ -31,7 +31,6 @@
             <ul class="nav navbar-nav">
                 <li><a href="/registration">Registration</a></li>
                 <li><a href="/catalog">Catalog</a></li>
-                <li><a href="/lot">Lots</a></li>
                 <li><a href="/login">Log in</a></li>
                 <li><a href="/account">My account</a></li>
                 <li><a href="/logout">Log out</a></li>
