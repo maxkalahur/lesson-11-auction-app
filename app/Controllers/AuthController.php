@@ -18,12 +18,10 @@ class AuthController extends Controller
         var_dump($postForm);
             if ($postForm){
                 $asr = Auth::login($postForm);
-                var_dump($asr);
                 if ($asr){
                     if (isset($postForm['rememberMe'])){
 //                        setcookie('password', md5($postForm['pass']), time()+9999999 );
                     }
-
                     header('location: /account');
                     exit();
                     die();

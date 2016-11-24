@@ -5,8 +5,10 @@ use App\Auth\Auth;
 use App\Controllers\Controller;
 use App\Database\DB;
 use App\Framework\View;
+use App\Models\Lot;
 use App\Models\User;
-use App\Services\Validator\Validator;
+use App\Services\UploadsManager\UploadsManager;
+
 
 
 class AccountController extends Controller
@@ -16,7 +18,8 @@ class AccountController extends Controller
         $checkId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
         if ($checkId){
             User::get($checkId);
-            $user = User::get($checkId);
+            $user = User::get($checkId)[0];
+
             $infoArray = [];
             $infoArray['user']['name'] = $user->getName();
             $infoArray['user']['email'] =  $user->getEmail();
@@ -38,7 +41,6 @@ class AccountController extends Controller
                                             LEFT JOIN categories as c
                                             ON l.`category_id` = c.id
                                             WHERE `buyer_id` ='.$checkId);
-            var_dump($infoArray);
             View::show('account',$infoArray);
         }
         else header('location: /login');
@@ -46,14 +48,40 @@ class AccountController extends Controller
 
     public function createLot()
     {
-        $infoCategory = DB::select('SELECT * FROM `categories`');
+        $infoLot = isset($_POST['lot']) ? $_POST['lot'] : null;
 
-//        $currentTime = time();//+ (7 * 24 * 60 * 60);
-//        $a = date('Y-m-d H:i:s', strtotime('+1 month', $currentTime));
-//        $a = date('Y-m-d H:i:s', strtotime('+1 day', $currentTime));
-//        $b = date('Y-m-d H:i:s', $currentTime);
-//        var_dump($a);
-//        var_dump($b);
+        if ($infoLot){
+//            var_dump($infoLot);
+            $newLot =  new Lot();
+            $newLot->setName($infoLot['name']);
+            $newLot->setMerchant_id($_SESSION['user_id']);
+            $newLot->setDescription($infoLot['description']);
+            $newLot->setCategory_id($infoLot['category_id']);
+            $newLot->setCategory_id($infoLot['category_id']);
+
+           $currentTime = time();//+ (7 * 24 * 60 * 60);
+
+            $lotTime = $infoLot['time'];
+            if ($lotTime = 'month'){
+                $addTime = date('Y-m-d H:i:s', strtotime('+1 month', $currentTime));
+                $newLot->time_finish($addTime);
+            }
+            else {
+                $addTimeValue = "+$lotTime day";
+                $addTime = date('Y-m-d H:i:s', strtotime($addTimeValue, $currentTime));
+                $newLot->time_finish($addTime);
+            }
+            $now = date('Y-m-d H:i:s', $currentTime);
+//            $uploadsManager = new UploadsManager();
+            $uploadsManager = $this->servicesContainer->uploadsManager;
+            $fileName = $uploadsManager->saveLotImage($_FILES['lot_image']);
+            var_dump($fileName);
+            var_dump($_POST);
+            var_dump($_FILES);
+        var_dump($now);
+        var_dump($addTime);
+        }
+        $infoCategory = DB::select('SELECT * FROM `categories`');
 
         View::show('create-lot',$infoCategory);
 
