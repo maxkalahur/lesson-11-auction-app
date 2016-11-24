@@ -1,7 +1,6 @@
 <?php
-namespace App\Services\UploadsManager;
+namespace App\Services\Uploads;
 
-use App\Framework\Config;
 
 class UploadsManager
 {
@@ -33,11 +32,15 @@ class UploadsManager
             $file['name'],
             PATHINFO_EXTENSION
         );
-        $filename = uniqid().'.'.$fileExtension;
-        $filenameThumb = uniqid().'_150x150.'.$fileExtension;
 
-        move_uploaded_file( $file['tmp_name'], '../../../images/lots/'.$filename );
-        $image->writeImageFile( '../../../images/lots/'.$filenameThumb );
+        $name = uniqid();
+        $filename = $name.'.'.$fileExtension;
+        $filenameThumb = $name.'_150x150.'.$fileExtension;
+//        echo __DIR__;
+        echo SITE_ROOT;
+        move_uploaded_file( $file['tmp_name'], SITE_ROOT.'/images/lots/'.$filename );
+//        $image->writeImageFile( '../../../images/lots/'.$filenameThumb );
+        file_put_contents(SITE_ROOT.'/images/lots/'.$filenameThumb, $image->getImageBlob());
 
         return $filename;
     }

@@ -51,7 +51,7 @@ class AccountController extends Controller
         $infoLot = isset($_POST['lot']) ? $_POST['lot'] : null;
 
         if ($infoLot){
-//            var_dump($infoLot);
+            // Create and set lot params
             $newLot =  new Lot();
             $newLot->setName($infoLot['name']);
             $newLot->setMerchant_id($_SESSION['user_id']);
@@ -59,32 +59,34 @@ class AccountController extends Controller
             $newLot->setCategory_id($infoLot['category_id']);
             $newLot->setCategory_id($infoLot['category_id']);
 
-           $currentTime = time();//+ (7 * 24 * 60 * 60);
-
+            // Define time to finish
+            $currentTime = time();
             $lotTime = $infoLot['time'];
+
             if ($lotTime = 'month'){
                 $addTime = date('Y-m-d H:i:s', strtotime('+1 month', $currentTime));
-                $newLot->time_finish($addTime);
+                $newLot->setTime_finish($addTime);
             }
             else {
                 $addTimeValue = "+$lotTime day";
                 $addTime = date('Y-m-d H:i:s', strtotime($addTimeValue, $currentTime));
-                $newLot->time_finish($addTime);
+                $newLot->setTime_finish($addTime);
             }
-            $now = date('Y-m-d H:i:s', $currentTime);
-//            $uploadsManager = new UploadsManager();
-            $uploadsManager = $this->servicesContainer->uploadsManager;
-            $fileName = $uploadsManager->saveLotImage($_FILES['lot_image']);
-            var_dump($fileName);
-            var_dump($_POST);
-            var_dump($_FILES);
-        var_dump($now);
-        var_dump($addTime);
+            // Save photo path and name
+
+            $image = isset($_FILES['lot_image']) ? $_FILES['lot_image'] : null;
+
+                if ($image['name']){
+                    $uploadsManager = $this->servicesContainer->uploadsManager;
+                    $fileName = $uploadsManager->saveLotImage($_FILES['lot_image']);
+                    $newLot->setImage($fileName);
+                }
+
+            $newLot->save();
+            header('location: /account');
         }
+
         $infoCategory = DB::select('SELECT * FROM `categories`');
-
         View::show('create-lot',$infoCategory);
-
     }
-
 }
