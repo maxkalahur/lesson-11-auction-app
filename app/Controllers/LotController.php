@@ -12,8 +12,7 @@ class LotController
     public function showLot(){
         if(isset($_GET['lot_id'])){
             $lot = Lot::get($_GET['lot_id']);
-            $arr=is_array($lot) ? ['lot_page'=>$lot] : ['lot_page'=>['0'=>$lot]];
-            View::show("lot", $arr);
+            View::show("lot", ['lot_page'=>$lot]);
             }
     }
     public function withCategory(){

@@ -5,25 +5,35 @@ namespace App\Services\Pagination;
 class Pagination
 {
   public static function generate($amountLots, $page, $limit){
-      $max_page=$amountLots/$limit;
-     $html ='<nav aria-label="Page navigation">
-                <ul class="pagination">';
-        if($page>0)
+
+        $page = $page == 0 ? 1 : $page ;
+      $path=parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+      $str=parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+      parse_str($str, $output);
+
+      if( isset($output['page']) ) {
+          unset($output['page']);
+      }
+      $query = $path."?".http_build_query($output);
+
+
+      $max_page=ceil($amountLots/$limit);
+     $html ='<ul class="pagination">';
+        if($page>1)
         {
             $html .= "<li>
-                        <a href = '/catalog/?page=". --$page ."'  aria - label = 'Previous' >
+                        <a href = '".$query."&page=". --$page ."'  aria - label = 'Previous' >
                             << <span aria - hidden = 'true' >&laquo;</span >
                         </a >
                     </li >";
         }
-                     for($page=0; $page<$max_page; $page++) {
-                         $html .= "<li><a href='/catalog/?page=" . $page . "'>$page</a></li>";
+                     for($i=1; $i<=$max_page; $i++) {
+                         $html .= "<li><a href='".$query."&page=". $i . "'>$i</a></li>";
                      }
-
       if($page<$max_page)
       {
           $html .="<li >
-               <a href = '/catalog/?page=".++$page."' aria - label = 'Next'>
+               <a href = '".$query."&page=".++$page."' aria - label = 'Next'>
                    >> <span aria - hidden = 'true' >&raquo;</span >
                </a >
             </li >";
