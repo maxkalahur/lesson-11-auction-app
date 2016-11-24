@@ -45,6 +45,10 @@ $user = $data['user'];
                     <i class="fa fa-money"></i> Bought
                 </a>
             </li>
+            <li><a href="/create-lot">
+                <i class="fa fa-star-half-empty  "></i> Add new lot
+            </a>
+            </li>
         </ul><!--nav-tabs close-->
 
         <!-- Tab panes -->

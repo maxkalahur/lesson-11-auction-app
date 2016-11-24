@@ -15,7 +15,7 @@ $routes = [
         'handler' => ['AccountController','index'],
         'policy' => ['is_user']
     ],
-
+    '/create-lot' => ['handler' => ['AccountController','createLot']],
     '/admin' => [
         'handler' => ['AdminController','index'],
         'policy' => 'is_admin'
