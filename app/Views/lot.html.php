@@ -10,7 +10,7 @@ $action=(int)$data['lot_page'][0]->id;
 <?php }?>
 
 <form  action="/lot/?lot_id=<?=$action?>" method="POST" >
-             <lavel>type over bet as '<?=$data['maxBet']?>'</lavel>
+             <lavel>type over bet as '<?=var_dump($data['maxBet'])?>'</lavel>
                  <input type="text" name="bet">
                 <input type="submit" value="Ok">
               </form>
