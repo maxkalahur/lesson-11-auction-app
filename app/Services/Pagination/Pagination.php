@@ -6,7 +6,7 @@ class Pagination
 {
   public static function generate($amountLots, $page, $limit){
 
-        $page = $page == 0 ? 1 : $page ;
+        $page = $page == 0 ? 1 : ++$page ;
       $path=parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
       $str=parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
       parse_str($str, $output);
@@ -16,13 +16,14 @@ class Pagination
       }
       $query = $path."?".http_build_query($output);
 
+      $max_page=(int)ceil($amountLots/$limit);
 
-      $max_page=ceil($amountLots/$limit);
      $html ='<ul class="pagination">';
         if($page>1)
         {
+            $goBack=$page;
             $html .= "<li>
-                        <a href = '".$query."&page=". --$page ."'  aria - label = 'Previous' >
+                        <a href = '".$query."&page=". --$goBack ."'  aria - label = 'Previous' >
                             << <span aria - hidden = 'true' >&laquo;</span >
                         </a >
                     </li >";
