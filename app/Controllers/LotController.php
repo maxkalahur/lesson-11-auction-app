@@ -8,40 +8,51 @@ use App\Models\LotPhoto;
 use App\Controllers\Controller;
 use App\Database\DB;
 use App\Framework\View;
-use App\Services\Validator\Validator;
+use App\Services\ServicesContainer;
 
 class LotController
 {
     public function showLot(){
-        $lot_id=isset($_GET['lot_id']) ? $_GET['lot_id'] : 0;
+        $lotID=isset($_GET['lot_id']) ? $_GET['lot_id'] : 0;
         $user=isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
         $bet=isset($_POST['bet']) ? (int)$_POST['bet'] : 0;
-        if($lot_id)
+        if($lotID)
         {
-            $lot = Lot::get($lot_id);
-            $lastBet=DB::select("SELECT MAX(`price`) as maxBet FROM `bets` WHERE `lot_id`='{$lot_id}'");
+            $lot = Lot::get($lotID);
+            $allBets=$this->makeBet($lotID, $bet, $user);
         }
-        $maxBet=isset($lastBet[0]['maxBet']) ? (int)$lastBet[0]['maxBet'] : 0;
-        $bet= ($bet>$maxBet) ?  $bet : $maxBet;
+        View::show("lot", [
+            'lot_page'=>$lot,
+            'maxBet'=>$allBets
+        ]);
+    }
 
-        $validate=new Validator();
-        $checkValid=$validate->validation(['bet'=>['numeric']],
-                                            ['bet'=>$bet]);
-
-        if($bet && $checkValid) {
-            if ($user) {
+    public function makeBet($lotID, $bet, $user){
+        $sql="SELECT * FROM `bets` WHERE `lot_id`='{$lotID}' ORDER BY `price`";
+        if($bet)
+        {
+            $allBets=DB::select($sql);
+            $maxBet=!empty($allBets) ? array_pop($allBets) : 0;
+            $bet= ($bet>$maxBet['price']) ?  $bet : (int)$maxBet['price'];
+            if ($user)
+            {
                 $time=date("Y-m-d H:i:s");
                 $userBet=DB::select("SELECT * FROM `bets` 
-                                      WHERE (`user_id`='{$user}' AND `lot_id`='{$lot_id}')");
+                                      WHERE (`user_id`='{$user}' AND `lot_id`='{$lotID}')");
                 if($userBet){
-                    DB::update("UPDATE `bets` 
+                    DB::update("UPDATE `bets`
                                 SET `price`='{$bet}', `created_at`='{$time}'
-                                WHERE(`user_id`='{$user}' AND `lot_id`='{$lot_id}')");
+                                WHERE(`user_id`='{$user}' AND `lot_id`='{$lotID}')");
+                   /* $Bet=new Bet();
+                    $updateBet=$Bet->hydrate($userBet);
+                    $Bet=$updateBet[0];
+                    $Bet->setPrice($bet);
+                    $Bet->save();     error*/
                 }else{
                     $Bet=new Bet();
                     $Bet->setPrice($bet);
                     $Bet->setUser_id($user);
-                    $Bet->setLot_id($lot_id);
+                    $Bet->setLot_id($lotID);
                     $Bet->setCreated_at($time);
                     $Bet->save();
                 }
@@ -50,9 +61,6 @@ class LotController
                 exit();
             }
         }
-        View::show("lot", [
-            'lot_page'=>$lot,
-            'maxBet'=>$bet
-        ]);
+        return $allBets=DB::select($sql);
     }
 }
