@@ -16,4 +16,5 @@ $config = [
     'admin' => [
         'email' => '****@gmail.com'
     ],
+    'lotLimit'=>"3"
 ];
