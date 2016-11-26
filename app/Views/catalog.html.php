@@ -28,7 +28,10 @@
                         echo "</div>";
                     }
                 } ?>
+            <div class="col-md-4 col-md-offset-5">
             <?php echo $data['pagination'];?>
+            </div>
+            </div>
        </div>
     </div>
 </div>
