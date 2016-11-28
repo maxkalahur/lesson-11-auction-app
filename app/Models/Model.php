@@ -44,6 +44,22 @@ abstract class Model implements ModelInterface
         return $res ;
     }
 
+    public static function staticHydrate(Array $data) {
+        $res = [];
+        foreach( $data as $item )
+        {
+            $res[] = $model = new static;            // mapping...
+            foreach ($item as $key => $val) {
+                $vars = get_object_vars($model);
+                if (array_key_exists($key, $vars)) {
+                    $setVarMethod = 'set' . ucfirst($key);
+                    $model->$setVarMethod($val);
+                }
+            }
+        }
+        return $res ;
+    }
+
 
     public function __call( $name, $args ) {
         //(User::get(1))->getEmail();

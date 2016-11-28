@@ -7,6 +7,8 @@ use App\Database\DB;
 use App\Framework\Config;
 use App\Models\Catalog;
 use App\Framework\View;
+use App\Models\Lot;
+use App\Models\Model;
 use App\Services\Pagination\Pagination;
 
 class CatalogController extends Controller
@@ -40,11 +42,14 @@ class CatalogController extends Controller
                         LIMIT " . $page * $limit . ",$limit";
             }
         $lots=DB::select($sql);
-
+        $objecLots = Lot::staticHydrate($lots);
+//        $a = new Lot();
+//        $a->imagePath();
+//        var_dump($objecLots);
         View::show("catalog", [
             'topCategories'=>$topCategories,
             'subCategories'=>$subCategories,
-            'lots'=>$lots,
+            'lots'=>$objecLots,
             'pagination'=> Pagination::generate((INT)$amountLots[0]['amount'], $page, $limit)
         ]);
 }

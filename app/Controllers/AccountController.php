@@ -1,15 +1,10 @@
 <?php
 namespace App\Controllers;
 
-use App\Auth\Auth;
-use App\Controllers\Controller;
 use App\Database\DB;
 use App\Framework\View;
 use App\Models\Lot;
 use App\Models\User;
-use App\Services\UploadsManager\UploadsManager;
-
-
 
 class AccountController extends Controller
 {
@@ -24,7 +19,7 @@ class AccountController extends Controller
             $infoArray['user']['name'] = $user->getName();
             $infoArray['user']['email'] =  $user->getEmail();
             $infoArray['user']['password'] = md5($user->getPassword());
-//            echo md5($user->getPassword());
+
             $infoArray['lots'] = DB::select('SELECT l.`name`,l.`description`,l.`id`,c.name as category_id,
                                             l.`bets_id`,u.name as buyer_id,l.`time_finish`
                                             FROM `lots` as l
@@ -33,6 +28,7 @@ class AccountController extends Controller
                                             LEFT JOIN categories as c
                                             ON l.`category_id` = c.id
                                             WHERE merchant_id ='.$checkId);
+
             $infoArray['purchases'] = DB::select('SELECT l.`name`,l.`description`,l.`id`,c.name as category_id,
                                             l.`bets_id`,u.name as merchant_id,l.`time_finish`
                                             FROM `lots` as l
