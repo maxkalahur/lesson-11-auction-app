@@ -40,22 +40,17 @@ class LotController
                 $userBet=DB::select("SELECT * FROM `bets` 
                                       WHERE (`user_id`='{$user}' AND `lot_id`='{$lotID}')");
                 if($userBet){
-                    DB::update("UPDATE `bets`
-                                SET `price`='{$bet}', `created_at`='{$time}'
-                                WHERE(`user_id`='{$user}' AND `lot_id`='{$lotID}')");
-                   /* $Bet=new Bet();
-                    $updateBet=$Bet->hydrate($userBet);
-                    $Bet=$updateBet[0];
+                    $Bet=Bet::staticHydrate($userBet)[0];
                     $Bet->setPrice($bet);
-                    $Bet->save();     error*/
+                    $Bet->setCreated_at($time);
                 }else{
                     $Bet=new Bet();
                     $Bet->setPrice($bet);
                     $Bet->setUser_id($user);
                     $Bet->setLot_id($lotID);
                     $Bet->setCreated_at($time);
-                    $Bet->save();
                 }
+                $Bet->save();
             } else {
                 header("location: /login");
                 exit();
