@@ -37,7 +37,7 @@
                 </div>
 
                 <?php ;
-//                var_dump($data);
+                var_dump($data);
                 if (!empty($data["lots"][0])) { ?>
                     <div id="products" class="row list-group">
                     <h2 align='center'>Select need lot</h2><br>
@@ -56,17 +56,24 @@
                                             <div class="col-xs-12 col-md-6">
                                                 <!--                                        price -->
                                                 <p class="lead">
+                                                    max bets ?
                                                    </p>
                                             </div>
-                                            <div class="col-xs-12 col-md-6">
-                                                <a class="btn btn-success" href="">View</a>
+                                            <div class="">
+                                                Time To finish
+                                                <div class="timer text-danger"
+                                                     data-end="<?=$value->time_finish;?>">
+                                                </div>
                                             </div>
+                                            <div class="col-xs-12 col-md-6">
+                                                <a class="btn btn-success" href="/lot?lot_id=<?=$value->id;?>">View</a>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
                         </div>
-
-
                     <?php } ?>
                 <?php } ?>
 
@@ -80,3 +87,4 @@
     </div>
 </div>
 </div>
+<script type="text/javascript" src="/app/Views/js/src.js"></script>
