@@ -37,7 +37,7 @@
                 </div>
 
                 <?php ;
-                var_dump($data);
+//               var_dump($data);
                 if (!empty($data["lots"][0])) { ?>
                     <div id="products" class="row list-group">
                     <h2 align='center'>Select need lot</h2><br>
