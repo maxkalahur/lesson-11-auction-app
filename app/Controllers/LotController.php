@@ -21,6 +21,7 @@ class LotController
             $lot = Lot::get($lotID);
             $allBets=$this->makeBet($lotID, $bet, $user);
         }
+        var_dump($allBets);
         View::show("lot", [
             'lot_page'=>$lot,
             'maxBet'=>$allBets
@@ -28,7 +29,13 @@ class LotController
     }
 
     public function makeBet($lotID, $bet, $user){
-        $sql="SELECT * FROM `bets` WHERE `lot_id`='{$lotID}' ORDER BY `price`";
+//      $sql="SELECT * FROM `bets` WHERE `lot_id`='{$lotID}' ORDER BY `price`";
+        $sql = "SELECT b.id, b.price, b.lot_id, u.name, b.created_at 
+                        FROM `bets` as b
+                        LEFT JOIN users as u
+                        ON u.id = b.user_id
+                        WHERE `lot_id`='{$lotID}'
+                        ORDER BY `price`";
         if($bet)
         {
             $allBets=DB::select($sql);
