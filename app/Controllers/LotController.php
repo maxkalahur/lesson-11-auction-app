@@ -30,8 +30,8 @@ class LotController
                         ORDER BY `price`");
         }
         View::show("lot", [
-            'lot_page'=>$lot,
-            'maxBet'=>$allBets
+            'lot'=>$lot,
+            'allBet'=>$allBets
         ]);
     }
 

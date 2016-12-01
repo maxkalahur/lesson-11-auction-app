@@ -110,7 +110,7 @@ abstract class Model implements ModelInterface
             $this->setId(DB::getLastId());
         }
         else {
-            DB::update("UPDATE $this->table SET $query where `lot_id`='{$update['lot_id']}'");
+            DB::update("UPDATE $this->table SET $query where `id`='{$update['lot_id']}'");
         }
 
 
