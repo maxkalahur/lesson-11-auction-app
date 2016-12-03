@@ -22,17 +22,6 @@ class MainController extends Controller
             'message'=>['string','require']],
             ['name'=>'vova', 'email'=>'1kaa@mail.com', 'password'=>'dasdas', 'message'=>'da asdwq wq']);
 
-        $user = User::get(1);
-        $email = $user->getEmail();
-
-        $users = User::all();
-
-        $user = User::getByEmail('test@.xx.xx');
-
-        exit();
-        $user = User::get(1);
-        $userLots = $user->lots();
-
     }
 
 }
