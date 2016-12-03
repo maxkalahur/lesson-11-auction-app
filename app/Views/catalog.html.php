@@ -3,6 +3,10 @@
     $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
     $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
     });
+//    var timerId = setTimeout(function tick() {
+    //        alert( "тик" );
+    //        timerId = setTimeout(tick, 2000);
+    //    }, 2000);
 </script>
 <div class="container">
 

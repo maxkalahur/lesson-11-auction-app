@@ -7,6 +7,7 @@ use App\Models\Bet;
 use App\Models\LotPhoto;
 use App\Controllers\Controller;
 use App\Database\DB;
+use App\Repositories\BetRepository;
 use App\Framework\View;
 use App\Services\ServicesContainer;
 
@@ -22,12 +23,8 @@ class LotController
             if($bet) {
                 $this->makeBet($lotID, $bet, $user);
             }
-            $allBets=DB::select("SELECT b.id, b.price, b.lot_id, u.name, b.created_at 
-                        FROM `bets` as b
-                        LEFT JOIN users as u
-                        ON u.id = b.user_id
-                        WHERE `lot_id`='{$lotID}'
-                        ORDER BY `price`");
+            $allBets=BetRepository::allBets($lotID);
+            $allBets=empty($allBets) ? ["Bet empty"] : $allBets;
         }
         View::show("lot", [
             'lot'=>$lot,
@@ -37,11 +34,9 @@ class LotController
 
     public function makeBet($lotID, $bet, $user)
     {
-            $lastBet=DB::select("SELECT * FROM `bets` 
-                                 WHERE (`lot_id`='{$lotID}' AND `price`<'$bet')");
+            $lastBet=BetRepository::lastBet($lotID, $bet);
             if ($user) {
-                $userBet=DB::select("SELECT * FROM `bets` 
-                                     WHERE (`user_id`='{$user}' AND `lot_id`='{$lotID}')");
+                $userBet=BetRepository::userBet($lotID, $user);
                 if($userBet) {
                     $Bet=Bet::staticHydrate($userBet)[0];
                     if(!empty($lastBet)) {

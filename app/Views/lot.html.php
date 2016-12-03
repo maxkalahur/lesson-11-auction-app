@@ -1,7 +1,7 @@
 <?php
-$action=(int)$data['lot_page'][0]->id;
-    if(!empty($data['lot_page'][0])):
-        foreach ($data['lot_page'] as $value): ?>
+$action=(int)$data['lot'][0]->id;
+    if(!empty($data['lot'][0])):
+        foreach ($data['lot'] as $value): ?>
 
     <div class="container">
 <!--   bootstrap popup to photo   -->
@@ -30,13 +30,13 @@ $action=(int)$data['lot_page'][0]->id;
             </h4>
             <p><span class="text-info" >Description:</span> <?=$value->description?></p>
 
-            <h4 class="text-info">Max Bet <span class="text-danger"><?=$data['maxBet'][0]['price']?> &#36;</span></h4>
+            <h4 class="text-info">Max Bet <span class="text-danger"><?=$data['allBet'][0]['price']?> &#36;</span></h4>
             <div class="container">
-                <p>from: <?=$data['maxBet'][0]['name']?></p>
+                <p>from: <?=$data['allBet'][0]['name']?></p>
             </div>
             <div class="container">
                 <p class="text-muted">Previous bets:</>
-                <?php foreach ($data['maxBet'] as $betKey => $betValue): ?>
+                <?php foreach ($data['allBet'] as $betKey => $betValue): ?>
                     <?php if ($betKey > 0):?>
                         <div class="container">
                             <p class="text-muted">Bet value: <?=$betValue['price']?></p>

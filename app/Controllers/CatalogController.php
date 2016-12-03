@@ -10,42 +10,25 @@ use App\Framework\View;
 use App\Models\Lot;
 use App\Models\Model;
 use App\Services\Pagination\Pagination;
+use App\Repositories\LotRepository;
 
 class CatalogController extends Controller
 {
     public function index(){
-
         $page=isset($_GET['page']) ? $_GET['page']-1 : 0;
         $categoryId=isset($_GET['category_id']) ? $_GET['category_id'] : 0;
 
-        $amountLots=DB::select("SELECT COUNT(*) as amount FROM `lots`");
+        $amountLots=LotRepository::amountLots($categoryId);
         $limit=$this->config->get("lotLimit");
-
         $topCategories=Catalog::getByParent(0);
-        if(!$categoryId)
-        {
+        if (!$categoryId) {
             $subCategories=[];
-            $sql="SELECT * FROM `lots` LIMIT ".$page*$limit.",$limit";
-        }
-        else
-            {
+        } else {
                 $subCategories = Catalog::getByParent($categoryId);
-                $amountLots=DB::select("SELECT COUNT(*) as amount FROM `lots`
-                                        WHERE `category_id` in (
-                                          SELECT `id` FROM `categories`
-                                          WHERE `id`=$categoryId  or parent=$categoryId)");
-                $sql = "SELECT * FROM `lots` 
-                        WHERE `category_id` in (
-                          SELECT `id` FROM `categories`
-                          WHERE `id`=$categoryId  or parent=$categoryId
-                        ) 
-                        LIMIT " . $page * $limit . ",$limit";
+                $amountLots=LotRepository::amountLots($categoryId);
             }
-        $lots=DB::select($sql);
+        $lots=LotRepository::getLots($categoryId, $page, $limit);
         $objecLots = Lot::staticHydrate($lots);
-//        $a = new Lot();
-//        $a->imagePath();
-//        var_dump($objecLots);
         View::show("catalog", [
             'topCategories'=>$topCategories,
             'subCategories'=>$subCategories,
