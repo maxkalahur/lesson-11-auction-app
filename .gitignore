@@ -1,1 +1,4 @@
 /vendor/
+.idea
+/app/config.php
+/images/
